@@ -1,0 +1,3 @@
+---
+# Reference to vault variables
+user_password: "{{ vault_user_password }}"

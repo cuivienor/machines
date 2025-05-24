@@ -1,0 +1,9 @@
+---
+user_name: cuiv
+user_shell: /bin/bash
+user_groups:
+  - wheel
+  - sudo
+user_home: "/home/{{ user_name }}"
+create_home: true
+sudo_nopasswd: false

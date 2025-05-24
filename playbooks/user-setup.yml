@@ -1,0 +1,6 @@
+---
+- name: Setup user account and sudo access
+  hosts: arch_linux
+  become: true
+  roles:
+    - user_management

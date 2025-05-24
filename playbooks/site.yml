@@ -1,0 +1,6 @@
+---
+- name: Configure all machines
+  hosts: all
+  become: true
+  roles:
+    - user_management

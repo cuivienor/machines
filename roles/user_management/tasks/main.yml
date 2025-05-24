@@ -1,0 +1,53 @@
+---
+- name: Install sudo package
+  package:
+    name: sudo
+    state: present
+  become: true
+
+- name: Ensure wheel group exists
+  group:
+    name: wheel
+    state: present
+  become: true
+
+- name: Create user {{ user_name }}
+  user:
+    name: "{{ user_name }}"
+    password: "{{ user_password | password_hash('sha512') }}"
+    shell: "{{ user_shell }}"
+    groups: "{{ user_groups }}"
+    append: true
+    home: "{{ user_home }}"
+    create_home: "{{ create_home }}"
+    state: present
+  become: true
+
+- name: Configure sudo for wheel group
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%wheel\s'
+    line: '%wheel ALL=(ALL:ALL) ALL'
+    validate: 'visudo -cf %s'
+  become: true
+  when: not sudo_nopasswd
+
+- name: Configure passwordless sudo for wheel group
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%wheel\s'
+    line: '%wheel ALL=(ALL:ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: true
+  when: sudo_nopasswd
+
+- name: Ensure user home directory permissions
+  file:
+    path: "{{ user_home }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0755'
+    state: directory
+  become: true
