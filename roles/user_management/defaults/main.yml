@@ -6,3 +6,4 @@ user_groups:
 user_home: "/home/{{ user_name }}"
 create_home: true
 sudo_nopasswd: false
+ssh_key_passphrase: "{{ vault_ssh_key_passphrase }}"

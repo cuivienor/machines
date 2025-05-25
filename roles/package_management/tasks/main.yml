@@ -1,6 +1,6 @@
 ---
 - name: Install base development packages
-  package:
+  ansible.builtin.package:
     name:
       - base-devel
       - git
@@ -8,13 +8,13 @@
   become: true
 
 - name: Check if yay is installed
-  command: which yay
+  ansible.builtin.command: which yay
   register: yay_check
   failed_when: false
   changed_when: false
 
 - name: Clone yay repository
-  git:
+  ansible.builtin.git:
     repo: https://aur.archlinux.org/yay.git
     dest: /tmp/yay
     clone: true
@@ -23,14 +23,14 @@
   become: false
 
 - name: Build and install yay
-  command: makepkg -si --noconfirm
+  ansible.builtin.command: makepkg -si --noconfirm
   args:
     chdir: /tmp/yay
   when: yay_check.rc != 0
   become: false
 
 - name: Clean up yay build directory
-  file:
+  ansible.builtin.file:
     path: /tmp/yay
     state: absent
   when: yay_check.rc != 0

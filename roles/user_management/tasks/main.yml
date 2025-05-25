@@ -1,6 +1,6 @@
 ---
 - name: Install required packages
-  package:
+  ansible.builtin.package:
     name:
       - sudo
       - zsh
@@ -8,13 +8,13 @@
   become: true
 
 - name: Ensure wheel group exists
-  group:
+  ansible.builtin.group:
     name: wheel
     state: present
   become: true
 
 - name: Create user {{ user_name }}
-  user:
+  ansible.builtin.user:
     name: "{{ user_name }}"
     password: "{{ user_password | password_hash('sha512') }}"
     shell: "{{ user_shell }}"
@@ -26,7 +26,7 @@
   become: true
 
 - name: Configure sudo for wheel group
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     regexp: '^%wheel\s'
@@ -36,7 +36,7 @@
   when: not sudo_nopasswd
 
 - name: Configure passwordless sudo for wheel group
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     regexp: '^%wheel\s'
@@ -46,10 +46,30 @@
   when: sudo_nopasswd
 
 - name: Ensure user home directory permissions
-  file:
+  ansible.builtin.file:
     path: "{{ user_home }}"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
     mode: '0700'
     state: directory
+  become: true
+
+- name: Ensure .ssh directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/.ssh"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0700'
+    state: directory
+  become: true
+
+- name: Generate SSH key pair (Ed25519)
+  community.crypto.openssh_keypair:
+    path: "{{ user_home }}/.ssh/id_ed25519"
+    type: ed25519
+    passphrase: "{{ ssh_key_passphrase }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0600'
+    state: present
   become: true
