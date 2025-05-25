@@ -35,3 +35,17 @@
     state: absent
   when: yay_check.rc != 0
   become: true
+
+- name: Install base packages via pacman
+  ansible.builtin.package:
+    name: "{{ base_packages }}"
+    state: present
+  become: true
+  when: base_packages is defined and base_packages | length > 0
+
+- name: Install AUR packages via yay
+  ansible.builtin.command: yay -S --noconfirm {{ item }}
+  loop: "{{ aur_packages }}"
+  become: false
+  become_user: "{{ user_name }}"
+  when: aur_packages is defined and aur_packages | length > 0

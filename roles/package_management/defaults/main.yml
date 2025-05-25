@@ -5,8 +5,10 @@ base_packages:
   - git
   - curl
   - wget
-  - vim
   - htop
 
 # Default AUR packages to install via yay
-aur_packages: []
+aur_packages:
+  - oh-my-zsh-git
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting
