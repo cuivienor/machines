@@ -1,7 +1,9 @@
 ---
-- name: Install sudo package
+- name: Install required packages
   package:
-    name: sudo
+    name:
+      - sudo
+      - zsh
     state: present
   become: true
 
@@ -48,6 +50,6 @@
     path: "{{ user_home }}"
     owner: "{{ user_name }}"
     group: "{{ user_name }}"
-    mode: '0755'
+    mode: '0700'
     state: directory
   become: true
