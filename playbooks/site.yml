@@ -4,3 +4,4 @@
   become: true
   roles:
     - user_management
+    - package_management

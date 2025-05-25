@@ -1,0 +1,12 @@
+---
+# Default packages to install via pacman
+base_packages:
+  - base-devel
+  - git
+  - curl
+  - wget
+  - vim
+  - htop
+
+# Default AUR packages to install via yay
+aur_packages: []
