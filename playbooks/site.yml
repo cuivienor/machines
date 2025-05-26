@@ -2,6 +2,8 @@
 - name: Configure all machines (run as user after bootstrap)
   hosts: all
   become: true
+  remote_user: "{{ user_name }}"
   roles:
     - package_management
+    - github_auth
 

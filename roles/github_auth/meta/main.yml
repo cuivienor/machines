@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: cuiv
+  description: Install GitHub CLI and configure SSH authentication
+  min_ansible_version: "2.9"
+  platforms:
+    - name: Archlinux
+      versions:
+        - all
+
+dependencies:
+  - user_management
