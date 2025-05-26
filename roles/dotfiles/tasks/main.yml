@@ -1,11 +1,18 @@
 ---
+- name: Check if dotfiles directory exists
+  ansible.builtin.stat:
+    path: "{{ dotfiles_dest }}"
+  register: dotfiles_check
+  become: false
+
 - name: Clone dotfiles repository
   ansible.builtin.git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_dest }}"
     clone: true
-    update: true
+    update: false
   become: false
+  when: not dotfiles_check.stat.exists
 
 - name: Make install script executable
   ansible.builtin.file:
