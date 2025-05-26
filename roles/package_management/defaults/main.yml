@@ -6,6 +6,7 @@ base_packages:
   - curl
   - wget
   - htop
+  - openssh
 
 # Default AUR packages to install via yay
 aur_packages:
