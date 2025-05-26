@@ -1,0 +1,25 @@
+---
+- name: Clone dotfiles repository
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_dest }}"
+    clone: true
+    update: true
+  become: false
+
+- name: Make install script executable
+  ansible.builtin.file:
+    path: "{{ dotfiles_dest }}/{{ dotfiles_script }}"
+    mode: '0755'
+  become: false
+
+- name: Run dotfiles installation script
+  ansible.builtin.command: "./{{ dotfiles_script }}"
+  args:
+    chdir: "{{ dotfiles_dest }}"
+  become: false
+  register: dotfiles_install_result
+
+- name: Display installation output
+  ansible.builtin.debug:
+    var: dotfiles_install_result.stdout_lines

@@ -1,0 +1,4 @@
+---
+# Dependencies for dotfiles and other tools
+dependency_packages:
+  - stow

@@ -5,5 +5,7 @@
   remote_user: "{{ user_name }}"
   roles:
     - package_management
+    - dependencies
     - github_auth
+    - dotfiles
 
