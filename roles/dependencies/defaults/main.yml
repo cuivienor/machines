@@ -5,6 +5,7 @@ dependency_packages:
   - zoxide
   - starship
   - fzf
+  - eza
 
 # AUR dependencies
 dependency_aur_packages: []
