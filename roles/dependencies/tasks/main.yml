@@ -78,3 +78,7 @@
     clone: true
     update: true
   become: false
+
+- name: Install tmux plugins via TPM
+  ansible.builtin.shell: "/home/{{ user_name }}/.config/tmux/plugins/tpm/scripts/install_plugins.sh"
+  become: false
