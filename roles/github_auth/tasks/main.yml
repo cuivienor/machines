@@ -19,7 +19,7 @@
   when: gh_auth_status.rc != 0
   become: false
   become_user: "{{ user_name }}"
-  no_log: true
+  # no_log: true
 
 - name: Check if SSH key already exists on GitHub
   ansible.builtin.command: gh ssh-key list
