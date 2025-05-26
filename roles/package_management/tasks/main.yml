@@ -43,8 +43,19 @@
   become: true
   when: base_packages is defined and base_packages | length > 0
 
-- name: Install AUR packages via yay
-  ansible.builtin.command: yay -S --noconfirm {{ item }}
+- name: Check if AUR packages are already installed
+  ansible.builtin.command: yay -Q {{ item }}
   loop: "{{ aur_packages }}"
+  register: aur_package_check
+  failed_when: false
+  changed_when: false
   become: false
   when: aur_packages is defined and aur_packages | length > 0
+
+- name: Install AUR packages via yay
+  ansible.builtin.command: yay -S --noconfirm {{ item.item }}
+  loop: "{{ aur_package_check.results }}"
+  become: false
+  when: 
+    - aur_packages is defined and aur_packages | length > 0
+    - item.rc != 0
