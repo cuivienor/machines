@@ -9,6 +9,7 @@ base_packages:
   - openssh
   - less
   - python-pexpect
+  - unzip
 
 # Default AUR packages to install via yay
 aur_packages:
