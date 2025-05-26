@@ -1,7 +1,7 @@
 ---
-- name: Configure all machines
+- name: Configure all machines (run as user after bootstrap)
   hosts: all
   become: true
   roles:
-    - user_management
     - package_management
+

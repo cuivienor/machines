@@ -42,7 +42,12 @@ For a brand new Arch Linux installation, follow these steps:
    # For other machines, update the hosts section
    ```
 
-7. **Run the playbook:**
+7. **Run bootstrap (as root):**
+   ```bash
+   ansible-playbook playbooks/bootstrap.yml --ask-become-pass
+   ```
+
+8. **Run main configuration (as your user):**
    ```bash
    ansible-playbook playbooks/site.yml --ask-become-pass
    ```
@@ -68,12 +73,12 @@ For a brand new Arch Linux installation, follow these steps:
 
 ## Usage
 
-Run the user setup playbook:
+Bootstrap new machine (creates user):
 ```bash
-ansible-playbook playbooks/user-setup.yml
+ansible-playbook playbooks/bootstrap.yml
 ```
 
-Run the complete site configuration:
+Run the complete site configuration (as user):
 ```bash
 ansible-playbook playbooks/site.yml
 ```

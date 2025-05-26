@@ -1,0 +1,6 @@
+---
+- name: Bootstrap - Create user account (run as root)
+  hosts: all
+  become: true
+  roles:
+    - user_management

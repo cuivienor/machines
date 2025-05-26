@@ -46,6 +46,5 @@
 - name: Install AUR packages via yay
   ansible.builtin.command: yay -S --noconfirm {{ item }}
   loop: "{{ aur_packages }}"
-  become: false
-  become_user: "{{ user_name }}"
+  become: true
   when: aur_packages is defined and aur_packages | length > 0
