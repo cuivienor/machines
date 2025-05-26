@@ -63,3 +63,18 @@
     clone: true
     update: true
   become: false
+
+- name: Create tmux plugins directory
+  ansible.builtin.file:
+    path: "/home/{{ user_name }}/.config/tmux/plugins"
+    state: directory
+    mode: '0755'
+  become: false
+
+- name: Clone tmux plugin manager (TPM)
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "/home/{{ user_name }}/.config/tmux/plugins/tpm"
+    clone: true
+    update: true
+  become: false
