@@ -1,4 +1,4 @@
 ---
 # GitHub CLI configuration
 github_ssh_key_title: "{{ ansible_hostname }}-{{ ansible_date_time.epoch }}"
-github_ssh_key_type: "signing"  # Can be "authentication" or "signing"
+github_ssh_key_type: "authentication"  # Can be "authentication" or "signing"
