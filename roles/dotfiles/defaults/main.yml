@@ -1,5 +1,5 @@
 ---
 # Dotfiles repository configuration
 dotfiles_repo: "https://github.com/cuivienor/dotfiles.git"
-dotfiles_dest: "{{ ansible_env.HOME }}/dotfiles"
+dotfiles_dest: "/home/{{ user_name }}/dotfiles"
 dotfiles_script: "install-dotfiles.bash"
