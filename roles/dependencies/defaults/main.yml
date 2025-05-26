@@ -10,6 +10,8 @@ dependency_packages:
   - tmux
   - bat
   - ripgrep
+  - nodejs
+  - npm
 
 # AUR dependencies
 dependency_aur_packages: []
