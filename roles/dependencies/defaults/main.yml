@@ -4,6 +4,7 @@ dependency_packages:
   - stow
   - zoxide
   - starship
+  - fzf
 
 # AUR dependencies
 dependency_aur_packages: []
