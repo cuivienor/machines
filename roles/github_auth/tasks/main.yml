@@ -62,13 +62,12 @@
   become: false
   become_user: "{{ user_name }}"
 
-- name: Start ssh-agent and add SSH key
-  ansible.builtin.shell: |
-    eval $(ssh-agent)
-    echo "$SSH_AGENT_PID" > {{ user_home }}/.ssh/ssh-agent.pid
-    ssh-add {{ user_home }}/.ssh/id_ed25519
-  environment:
-    SSH_AUTH_SOCK: "{{ user_home }}/.ssh/ssh-agent.sock"
+- name: Start ssh-agent and add SSH key with passphrase
+  ansible.builtin.expect:
+    command: sh -c "eval $(ssh-agent -s) && ssh-add {{ user_home }}/.ssh/id_ed25519"
+    responses:
+      'Enter passphrase for': "{{ ssh_key_passphrase }}"
+    timeout: 30
   become: false
   become_user: "{{ user_name }}"
 
