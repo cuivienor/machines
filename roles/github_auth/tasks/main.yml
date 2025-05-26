@@ -62,10 +62,22 @@
   become: false
   become_user: "{{ user_name }}"
 
+- name: Start ssh-agent and add SSH key
+  ansible.builtin.shell: |
+    eval $(ssh-agent)
+    echo "$SSH_AGENT_PID" > {{ user_home }}/.ssh/ssh-agent.pid
+    ssh-add {{ user_home }}/.ssh/id_ed25519
+  environment:
+    SSH_AUTH_SOCK: "{{ user_home }}/.ssh/ssh-agent.sock"
+  become: false
+  become_user: "{{ user_name }}"
+
 - name: Test SSH connection to GitHub
   ansible.builtin.command: ssh -T git@github.com
   register: github_ssh_test
   failed_when: github_ssh_test.rc not in [0, 1]  # GitHub returns 1 on successful auth
   changed_when: false
+  environment:
+    SSH_AUTH_SOCK: "{{ user_home }}/.ssh/ssh-agent.sock"
   become: false
   become_user: "{{ user_name }}"
