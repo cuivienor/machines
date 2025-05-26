@@ -6,6 +6,10 @@ dependency_packages:
   - starship
   - fzf
   - eza
+  - neovim
+  - tmux
+  - bat
+  - ripgrep
 
 # AUR dependencies
 dependency_aur_packages: []
