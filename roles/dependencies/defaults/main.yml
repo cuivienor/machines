@@ -2,3 +2,8 @@
 # Dependencies for dotfiles and other tools
 dependency_packages:
   - stow
+  - zoxide
+  - starship
+
+# AUR dependencies
+dependency_aur_packages: []

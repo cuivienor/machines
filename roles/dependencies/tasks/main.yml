@@ -4,3 +4,31 @@
     name: "{{ dependency_packages }}"
     state: present
   become: true
+
+- name: Check if AUR dependency packages are already installed
+  ansible.builtin.command: yay -Q {{ item }}
+  loop: "{{ dependency_aur_packages }}"
+  register: dependency_aur_package_check
+  failed_when: false
+  changed_when: false
+  become: false
+  when: dependency_aur_packages is defined and dependency_aur_packages | length > 0
+
+- name: Install AUR dependency packages via yay
+  ansible.builtin.command: yay -S --noconfirm {{ item.item }}
+  loop: "{{ dependency_aur_package_check.results }}"
+  become: false
+  when: 
+    - dependency_aur_packages is defined and dependency_aur_packages | length > 0
+    - item.rc != 0
+
+- name: Check if oh-my-zsh is already installed
+  ansible.builtin.stat:
+    path: "/home/{{ user_name }}/.oh-my-zsh"
+  register: ohmyzsh_check
+  become: false
+
+- name: Install oh-my-zsh
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  become: false
+  when: not ohmyzsh_check.stat.exists
