@@ -2,7 +2,7 @@
 - name: Install AI tools via npm
   ansible.builtin.npm:
     name: "{{ item }}"
-    global: true
+    global: false
     state: present
   loop: "{{ ai_npm_packages }}"
   become: false
