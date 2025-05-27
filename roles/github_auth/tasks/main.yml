@@ -51,12 +51,28 @@
   become: false
   become_user: "{{ user_name }}"
 
-- name: Configure Git to use SSH for GitHub
+- name: Configure Git settings
   ansible.builtin.git_config:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
     scope: global
   loop:
+    - name: user.email
+      value: "{{ git_user_email }}"
+    - name: user.name
+      value: "{{ git_user_name }}"
+    - name: credential.https://github.com.helper
+      value: ""
+    - name: credential.https://github.com.helper
+      value: "!/usr/bin/gh auth git-credential"
+    - name: credential.https://gist.github.com.helper
+      value: ""
+    - name: credential.https://gist.github.com.helper
+      value: "!/usr/bin/gh auth git-credential"
+    - name: init.defaultBranch
+      value: main
+    - name: core.editor
+      value: nvim
     - name: url.git@github.com:.insteadOf
       value: https://github.com/
   become: false

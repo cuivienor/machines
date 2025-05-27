@@ -2,3 +2,7 @@
 # GitHub CLI configuration
 github_ssh_key_title: "{{ ansible_hostname }}-{{ ansible_date_time.epoch }}"
 github_ssh_key_type: "authentication"  # Can be "authentication" or "signing"
+
+# Git configuration (values from vault)
+git_user_email: "{{ vault_git_user_email }}"
+git_user_name: "{{ vault_git_user_name }}"
