@@ -10,6 +10,7 @@ base_packages:
   - less
   - python-pexpect
   - unzip
+  - python-pip
 
 # Default AUR packages to install via yay
 aur_packages:
