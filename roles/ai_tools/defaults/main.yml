@@ -1,0 +1,4 @@
+---
+# AI-related tools and CLIs
+ai_npm_packages:
+  - "@anthropic-ai/claude-cli"

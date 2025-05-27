@@ -1,0 +1,9 @@
+---
+- name: Install AI tools via npm
+  ansible.builtin.npm:
+    name: "{{ item }}"
+    global: true
+    state: present
+  loop: "{{ ai_npm_packages }}"
+  become: false
+  when: ai_npm_packages is defined and ai_npm_packages | length > 0
