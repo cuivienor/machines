@@ -12,6 +12,7 @@ dependency_packages:
   - ripgrep
   - nodejs
   - npm
+  - fd
 
 # AUR dependencies
 dependency_aur_packages: []
