@@ -13,6 +13,7 @@ dependency_packages:
   - nodejs
   - npm
   - fd
+  - uv
 
 # AUR dependencies
 dependency_aur_packages: []
