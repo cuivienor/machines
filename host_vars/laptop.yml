@@ -1,0 +1,8 @@
+---
+# Laptop machine specific variables
+user_name: cuiv
+
+# Machine-specific packages or configurations can go here
+# machine_specific_packages:
+#   - package1
+#   - package2
